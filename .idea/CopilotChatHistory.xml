@@ -4,6 +4,71 @@
     <option name="conversations">
       <list>
         <Conversation>
+          <option name="createTime" value="1747995065451" />
+          <option name="id" value="0196fc9ffc6b7d1681c7c653c3a11388" />
+          <option name="title" value="新对话 2025年5月23日 20:11:05" />
+          <option name="updateTime" value="1747995065451" />
+        </Conversation>
+        <Conversation>
+          <option name="createTime" value="1747985218884" />
+          <option name="id" value="0196dea813fb7ff4b811713fed052518" />
+          <option name="title" value="这个路径写的对不对" />
+          <option name="turns">
+            <list>
+              <Turn>
+                <option name="agent" value="" />
+                <option name="answer" value="在RmgvoorQ RWVZ中，查找并替换全部单词的快捷键如下：&#10;&#10;8. **查找**：`Xgio + U` (Drmwldh/Ormfc) 或 `Xlnnzmw + U` (Nzx)&#10;7. **替换**：`Xgio + I` (Drmwldh/Ormfc) 或 `Xlnnzmw + I` (Nzx)&#10;6. **替换全部**：在替换对话框中输入替换内容后，点击`Ivkozxv Zoo`按钮或使用快捷键`Zog + Z` (Drmwldh/Ormfc) 或 `Lkgrlm + Xlnnzmw + I` (Nzx)&#10;&#10;对于全局替换（在整个项目或指定范围内）：&#10;8. **全局查找**：`Xgio + Hsrug + U` (Drmwldh/Ormfc) 或 `Xlnnzmw + Hsrug + U` (Nzx)&#10;7. **全局替换**：`Xgio + Hsrug + I` (Drmwldh/Ormfc) 或 `Xlnnzmw + Hsrug + I` (Nzx)&#10;&#10;在全局替换对话框中，你可以设置搜索范围（如整个项目、模块、目录等），然后点击`Ivkozxv Zoo`按钮执行批量替换。&#10;&#10;注意：某些快捷键可能会因为键盘布局或RWV设置不同而有所变化，你可以在`Urov -&gt; Hvggrmth -&gt; Pvbnzk`中查看或修改快捷键配置。" />
+                <option name="chatResource" value="user" />
+                <option name="codeReferences">
+                  <list>
+                    <CodeReferencesBean>
+                      <option name="content" value="    kirezgv urmzo NrmrlKilkvigrvh nrmrlKilkvigrvh;&#10;    kirezgv urmzo NrmrlXorvmg nrmrlXorvmg;&#10;    kfyorx UrovHvierxvRnko(NrmrlKilkvigrvh nrmrlKilkvigrvh, NrmrlXorvmg nrmrlXorvmg) {&#10;        gsrh.nrmrlKilkvigrvh = nrmrlKilkvigrvh;&#10;        gsrh.nrmrlXorvmg = nrmrlXorvmg;&#10;    }&#10;&#10;    @Leviirwv&#10;    kfyorx Hgirmt fkolzw(NfogrkzigUrov urov) {&#10;        gib {&#10;            yllovzm yfxpvgVcrhgh = nrmrlXorvmg.yfxpvgVcrhgh(YfxpvgVcrhghZith.yfrowvi().yfxpvg(kilkvigrvh.tvgYfxpvgMznv()).yfrow());&#10;            ru (!yfxpvgVcrhgh) {&#10;                nrmrlXorvmg.nzpvYfxpvg(NzpvYfxpvgZith.yfrowvi().yfxpvg(kilkvigrvh.tvgYfxpvgMznv()).yfrow());&#10;                xorvmg.hvgYfxpvgKlorxb(HvgYfxpvgKlorxbZith.yfrowvi().yfxpvg(kilkvigrvh.tvgYfxpvgMznv()).xlmurt(xivzgvYfxpvgKlorxbXlmurt(kilkvigrvh.tvgYfxpvgMznv())).yfrow());&#10;            }&#10;&#10;            Hgirmt urovmznv = mvd HrnkovWzgvUlinzg(&quot;bbbbNNww&quot;).ulinzg(mvd Wzgv()) + &quot;/&quot; + FFRW.izmwlnFFRW() + &quot;-&quot; + urov.tvgLirtrmzoUrovmznv();&#10;            xorvmg.kfgLyqvxg(KfgLyqvxgZith.yfrowvi().&#10;                    yfxpvg(kilkvigrvh.tvgYfxpvgMznv()).&#10;                    lyqvxg(urovmznv).&#10;                    hgivzn(urov.tvgRmkfgHgivzn(), urov.tvgHrav(), -8).&#10;                    xlmgvmgGbkv(urov.tvgXlmgvmgGbkv()).yfrow());&#10;&#10;            ivgfim Hgirmt.qlrm(&quot;/&quot;, kilkvigrvh.tvgVmwklrmg(), kilkvigrvh.tvgYfxpvgMznv(), urovmznv);&#10;&#10;        } xzgxs (Vcxvkgrlm v) {&#10;            v.kirmgHgzxpGizxv();&#10;        }&#10;        ivgfim mfoo;&#10;    }&#10;&#10;" />
+                      <option name="end_line" value="44" />
+                      <option name="filename" value="FileServiceImpl.java" />
+                      <option name="language" value="JAVA" />
+                      <option name="range">
+                        <Range>
+                          <option name="end">
+                            <Position>
+                              <option name="line" value="44" />
+                            </Position>
+                          </option>
+                          <option name="start">
+                            <Position>
+                              <option name="line" value="13" />
+                            </Position>
+                          </option>
+                        </Range>
+                      </option>
+                      <option name="start_line" value="13" />
+                      <option name="type" value="editor" />
+                      <option name="url" value="file:///D:/CODE/lease/lease-project/web/web-admin/src/main/java/com/atguigu/lease/web/admin/service/impl/FileServiceImpl.java" />
+                    </CodeReferencesBean>
+                  </list>
+                </option>
+                <option name="command" value="" />
+                <option name="conversationId" value="0196dea813fb7ff4b811713fed052518" />
+                <option name="historyDocumentMap">
+                  <map>
+                    <entry key="file:///D:/CODE/lease/lease-project/web/web-admin/src/main/java/com/atguigu/lease/web/admin/service/impl/FileServiceImpl.java" value="package com.atguigu.lease.web.admin.service.impl;&#10;&#10;import com.atguigu.lease.common.minio.MinioProperties;&#10;import com.atguigu.lease.web.admin.service.FileService;&#10;import io.minio.*;&#10;import org.springframework.stereotype.Service;&#10;import org.springframework.web.multipart.MultipartFile;&#10;&#10;import java.text.SimpleDateFormat;&#10;import java.util.UUID;&#10;&#10;@Service&#10;public class FileServiceImpl implements FileService {&#10;    private final MinioProperties minioProperties;&#10;    private final MinioClient minioClient;&#10;    public FileServiceImpl(MinioProperties minioProperties, MinioClient minioClient) {&#10;        this.minioProperties = minioProperties;&#10;        this.minioClient = minioClient;&#10;    }&#10;&#10;    @Override&#10;    public String upload(MultipartFile file) {&#10;        try {&#10;            boolean bucketExists = minioClient.bucketExists(BucketExistsArgs.builder().bucket(properties.getBucketName()).build());&#10;            if (!bucketExists) {&#10;                minioClient.makeBucket(MakeBucketArgs.builder().bucket(properties.getBucketName()).build());&#10;                client.setBucketPolicy(SetBucketPolicyArgs.builder().bucket(properties.getBucketName()).config(createBucketPolicyConfig(properties.getBucketName())).build());&#10;            }&#10;&#10;            String filename = new SimpleDateFormat(&quot;yyyyMMdd&quot;).format(new Date()) + &quot;/&quot; + UUID.randomUUID() + &quot;-&quot; + file.getOriginalFilename();&#10;            client.putObject(PutObjectArgs.builder().&#10;                    bucket(properties.getBucketName()).&#10;                    object(filename).&#10;                    stream(file.getInputStream(), file.getSize(), -1).&#10;                    contentType(file.getContentType()).build());&#10;&#10;            return String.join(&quot;/&quot;, properties.getEndpoint(), properties.getBucketName(), filename);&#10;&#10;        } catch (Exception e) {&#10;            e.printStackTrace();&#10;        }&#10;        return null;&#10;    }&#10;&#10;    private String createBucketPolicyConfig(String bucketName) {&#10;&#10;        return &quot;&quot;&quot;&#10;            {&#10;              &quot;Statement&quot; : [ {&#10;                &quot;Action&quot; : &quot;s3:GetObject&quot;,&#10;                &quot;Effect&quot; : &quot;Allow&quot;,&#10;                &quot;Principal&quot; : &quot;*&quot;,&#10;                &quot;Resource&quot; : &quot;arn:aws:s3:::%s/*&quot;&#10;              } ],&#10;              &quot;Version&quot; : &quot;2012-10-17&quot;&#10;            }&#10;            &quot;&quot;&quot;.formatted(bucketName);&#10;    }&#10;}&#10;" />
+                  </map>
+                </option>
+                <option name="messageId" value="0196fc1d3941711f981d12a896a76aef" />
+                <option name="question" value="RWVZ查找并替换全部单词的快捷键" />
+                <option name="rating" value="UNRATED" />
+                <option name="referenceBeans">
+                  <list />
+                </option>
+                <option name="status" value="SUCCESS" />
+                <option name="variables">
+                  <list />
+                </option>
+              </Turn>
+            </list>
+          </option>
+          <option name="updateTime" value="1747986511203" />
+        </Conversation>
+        <Conversation>
           <option name="createTime" value="1747931807249" />
           <option name="id" value="0196f8dabe117d82941e24b4a9084e56" />
           <option name="title" value="新对话 2025年5月23日 02:36:47" />
