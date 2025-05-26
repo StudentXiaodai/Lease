@@ -17,6 +17,7 @@ import org.apache.ibatis.annotations.Mapper;
 */
 public interface ApartmentInfoMapper extends BaseMapper<ApartmentInfo> {
 
+    IPage<ApartmentItemVo> pageItem(IPage<ApartmentItemVo> page, ApartmentQueryVo queryVo);
 }
 
 

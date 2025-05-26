@@ -4,4 +4,69 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.atguigu.lease.web.admin.mapper.ApartmentInfoMapper">
 
+    <select id="pageItem" resultType="com.atguigu.lease.web.admin.vo.apartment.ApartmentItemVo">
+        select
+            apartment_info.id,
+            apartment_info.name,
+            apartment_info.introduction,
+            apartment_info.district_id,
+            apartment_info.district_name,
+            apartment_info.city_id,
+            apartment_info.city_name,
+            apartment_info.province_id,
+            apartment_info.province_name,
+            apartment_info.address_detail,
+            apartment_info.latitude,
+            apartment_info.longitude,
+            apartment_info.phone,
+            apartment_info.is_release,
+            ifnull(room_total.cnt, 0) as total_room_count, -- 必须起别名 total_room_count，不然会映射失败
+            ifnull(room_total.cnt, 0) - ifnull(room_occupied.cnt, 0) as free_room_count -- 必须起别名 free_room_count，不然会映射失败
+            from
+        (select id,
+                name,
+                introduction,
+                district_id,
+                district_name,
+                city_id,
+                city_name,
+                province_id,
+                province_name,
+                address_detail,
+                latitude,
+                longitude,
+                phone,
+                is_release
+         from apartment_info
+        <where>
+            is_deleted=0
+            <if test="queryVo.provinceId != null">
+                and province_id=#{queryVo.provinceId}
+            </if>
+            <if test="queryVo.cityId != null">
+                and city_id=#{queryVo.cityId}
+            </if>
+            <if test="queryVo.districtId != null">
+                and district_id=#{queryVo.districtId}
+            </if>
+        </where>) as apartment_info
+        left join
+--      查询房间总数
+             (select apartment_id,
+                     count(*) as cnt
+        from room_info
+        where is_deleted = 0
+          and is_release = 1
+        group by apartment_id) as room_total
+        on apartment_info.id = room_total.apartment_id
+        left join
+--      查询已签约的房间数
+                 (select apartment_id,
+                  count(*) as cnt
+        from lease_agreement
+        where is_deleted = 0
+          and status in (2, 5)
+        group by apartment_id) as room_occupied
+        on apartment_info.id = room_occupied.apartment_id
+    </select>
 </mapper>

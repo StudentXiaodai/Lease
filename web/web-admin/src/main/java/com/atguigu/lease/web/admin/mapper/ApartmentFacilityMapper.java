@@ -1,8 +1,11 @@
 package com.atguigu.lease.web.admin.mapper;
 
 import com.atguigu.lease.model.entity.ApartmentFacility;
+import com.atguigu.lease.model.entity.FacilityInfo;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
+
+import java.util.List;
 
 /**
 * @author liubo
@@ -13,6 +16,7 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface ApartmentFacilityMapper extends BaseMapper<ApartmentFacility> {
 
+    List<FacilityInfo> selectListByApartmentId(Long id);
 }
 
 
