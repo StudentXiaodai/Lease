@@ -4,6 +4,7 @@ package com.atguigu.lease.web.admin.controller.apartment;
 import com.atguigu.lease.common.result.Result;
 import com.atguigu.lease.model.entity.RoomInfo;
 import com.atguigu.lease.model.enums.ReleaseStatus;
+import com.atguigu.lease.web.admin.service.RoomInfoService;
 import com.atguigu.lease.web.admin.vo.room.RoomDetailVo;
 import com.atguigu.lease.web.admin.vo.room.RoomItemVo;
 import com.atguigu.lease.web.admin.vo.room.RoomQueryVo;
@@ -19,10 +20,15 @@ import java.util.List;
 @RestController
 @RequestMapping("/admin/room")
 public class RoomController {
+    private final RoomInfoService roomInfoService;
+    public RoomController(RoomInfoService roomInfoService) {
+        this.roomInfoService = roomInfoService;
+    }
 
     @Operation(summary = "保存或更新房间信息")
     @PostMapping("saveOrUpdate")
     public Result saveOrUpdate(@RequestBody RoomSubmitVo roomSubmitVo) {
+        roomInfoService.saveOrUpdateRoom(roomSubmitVo);
         return Result.ok();
     }
 
