@@ -5,8 +5,12 @@ import com.atguigu.lease.model.enums.ItemType;
 import com.atguigu.lease.web.admin.mapper.RoomInfoMapper;
 import com.atguigu.lease.web.admin.service.*;
 import com.atguigu.lease.web.admin.vo.graph.GraphVo;
+import com.atguigu.lease.web.admin.vo.room.RoomItemVo;
+import com.atguigu.lease.web.admin.vo.room.RoomQueryVo;
 import com.atguigu.lease.web.admin.vo.room.RoomSubmitVo;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -29,15 +33,18 @@ public class RoomInfoServiceImpl extends ServiceImpl<RoomInfoMapper, RoomInfo>
     private final RoomLabelService roomLabelService;
     private final RoomPaymentTypeService roomPaymentTypeService;
     private final RoomLeaseTermService roomLeaseTermService;
+    private final RoomInfoMapper roomInfoMapper;
+
     public RoomInfoServiceImpl(RoomAttrValueService roomAttrValueService, GraphInfoService graphInfoService
     , RoomFacilityService roomFacilityService, RoomLabelService roomLabelService
-    , RoomPaymentTypeService roomPaymentTypeService, RoomLeaseTermService roomLeaseTermService) {
+    , RoomPaymentTypeService roomPaymentTypeService, RoomLeaseTermService roomLeaseTermService, RoomInfoMapper roomInfoMapper) {
         this.graphInfoService = graphInfoService;
         this.roomAttrValueService = roomAttrValueService;
         this.roomFacilityService = roomFacilityService;
         this.roomLabelService = roomLabelService;
         this.roomPaymentTypeService = roomPaymentTypeService;
         this.roomLeaseTermService = roomLeaseTermService;
+        this.roomInfoMapper = roomInfoMapper;
     }
 
     @Override
@@ -150,6 +157,11 @@ public class RoomInfoServiceImpl extends ServiceImpl<RoomInfoMapper, RoomInfo>
             }
             roomLeaseTermService.saveBatch(leaseTerms);
         }
+    }
+
+    @Override
+    public IPage<RoomItemVo> pageItem(Page<RoomItemVo> roomItemVoIPage, RoomQueryVo queryVo) {
+        return roomInfoMapper.pageItem(roomItemVoIPage, queryVo);
     }
 }
 

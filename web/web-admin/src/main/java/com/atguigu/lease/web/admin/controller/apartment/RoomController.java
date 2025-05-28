@@ -10,6 +10,7 @@ import com.atguigu.lease.web.admin.vo.room.RoomItemVo;
 import com.atguigu.lease.web.admin.vo.room.RoomQueryVo;
 import com.atguigu.lease.web.admin.vo.room.RoomSubmitVo;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
@@ -35,7 +36,9 @@ public class RoomController {
     @Operation(summary = "根据条件分页查询房间列表")
     @GetMapping("pageItem")
     public Result<IPage<RoomItemVo>> pageItem(@RequestParam long current, @RequestParam long size, RoomQueryVo queryVo) {
-        return Result.ok();
+        Page<RoomItemVo> roomItemVoIPage = new Page<>();
+        IPage<RoomItemVo> result = roomInfoService.pageItem(roomItemVoIPage, queryVo);
+        return Result.ok(result);
     }
 
     @Operation(summary = "根据id获取房间详细信息")

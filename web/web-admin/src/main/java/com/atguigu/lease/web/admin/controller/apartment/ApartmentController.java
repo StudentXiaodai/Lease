@@ -38,7 +38,7 @@ public class ApartmentController {
     @Operation(summary = "根据条件分页查询公寓列表")
     @GetMapping("pageItem")
     public Result<IPage<ApartmentItemVo>> pageItem(@RequestParam long current, @RequestParam long size, ApartmentQueryVo queryVo) {
-        IPage<ApartmentItemVo> page = new Page<>(current, size);
+        Page<ApartmentItemVo> page = new Page<>(current, size);
         // 这里得用自定义的查询条件是因为ApartmentItemVo不仅仅只有ApartmentInfo，还有totalRoomCount和freeRoomCount两个字段
         // 而MP提供的通用查询条件只能查询ApartmentInfo，totalRoomCount和freeRoomCount两个字段无法查询！
         IPage<ApartmentItemVo> result = apartmentInfoService.pageItem(page, queryVo);

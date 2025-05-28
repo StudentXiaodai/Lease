@@ -3,5 +3,81 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.atguigu.lease.web.admin.mapper.RoomInfoMapper">
+    <resultMap id="RoomItemVoMap" type="com.atguigu.lease.web.admin.vo.room.RoomItemVo">
+        <id property="id" column="id"/>
+        <result property="rent" column="rent"/>
+        <result property="roomNumber" column="room_number"/>
+        <result property="apartmentId" column="apartment_id"/>
+        <result property="isRelease" column="is_release"/>
+        <!-- 新增手动映射 -->
+        <result property="isCheckIn" column="is_check_in" javaType="boolean"/>
+        <result property="leaseEndDate" column="lease_end_date" jdbcType="TIMESTAMP"/>
+        <!--<association>：处理一对一关系，因为房间信息作为主表，而一个房间只能对应一个公寓-->
+        <!--<collection>：处理一对多关系，如果这里是公寓作为主表，查询公寓对应的房间信息，就用collection！-->
+        <association property="apartmentInfo" javaType="com.atguigu.lease.model.entity.ApartmentInfo">
+            <id property="id" column="apart_id"/>
+            <result property="isRelease" column="apart_is_release"/>
+            <result property="name" column="name"/>
+            <result property="introduction" column="introduction"/>
+            <result property="districtId" column="district_id"/>
+            <result property="districtName" column="district_name"/>
+            <result property="cityId" column="city_id"/>
+            <result property="cityName" column="city_name"/>
+            <result property="provinceId" column="province_id"/>
+            <result property="provinceName" column="province_name"/>
+            <result property="addressDetail" column="address_detail"/>
+            <result property="latitude" column="latitude"/>
+            <result property="longitude" column="longitude"/>
+            <result property="phone" column="phone"/>
+        </association>
+    </resultMap>
 
+    <select id="pageItem" resultMap="RoomItemVoMap">
+        select ri.id,
+               ri.room_number,
+               ri.rent,
+               ri.apartment_id,
+               ri.is_release,
+               -- 如果room_id不为NULL，则返回true(或1)，这个结果会被命名为is_check_in列
+               -- 如果room_id为NULL，则返回false(或0)，这个结果会被命名为is_check_in列
+               la.room_id is not null is_check_in,
+               la.lease_end_date,
+               ai.id                  apart_id,
+               ai.name,
+               ai.introduction,
+               ai.district_id,
+               ai.district_name,
+               ai.city_id,
+               ai.city_name,
+               ai.province_id,
+               ai.province_name,
+               ai.address_detail,
+               ai.latitude,
+               ai.longitude,
+               ai.phone,
+               ai.is_release          apart_is_release
+        from room_info ri
+                 left join lease_agreement la
+                           on ri.id = la.room_id
+                               and la.is_deleted = 0
+                               and la.status in (2, 5)
+                 left join apartment_info ai
+                           on ri.apartment_id = ai.id
+                               and ai.is_deleted = 0
+                                <where>
+                                    ri.is_deleted = 0
+                                    <if test="queryVo.provinceId != null">
+                                        and province_id = #{queryVo.provinceId}
+                                    </if>
+                                    <if test="queryVo.cityId != null">
+                                        and city_id = #{queryVo.cityId}
+                                    </if>
+                                    <if test="queryVo.districtId != null">
+                                        and district_id = #{queryVo.districtId}
+                                    </if>
+                                    <if test="queryVo.apartmentId != null">
+                                        and apartment_id = #{queryVo.apartmentId}
+                                    </if>
+                                </where>
+    </select>
 </mapper>
