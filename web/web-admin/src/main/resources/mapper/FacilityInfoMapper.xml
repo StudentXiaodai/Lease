@@ -4,4 +4,16 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.atguigu.lease.web.admin.mapper.FacilityInfoMapper">
 
+    <select id="selectListByRoomId" resultType="com.atguigu.lease.model.entity.FacilityInfo">
+        select fi.id,
+               fi.type,
+               fi.name,
+               fi.icon
+        from facility_info fi
+                 join room_facility rf on fi.id = rf.facility_id
+        where fi.is_deleted = 0
+          and rf.is_deleted = 0
+          and rf.room_id = #{id}
+
+    </select>
 </mapper>

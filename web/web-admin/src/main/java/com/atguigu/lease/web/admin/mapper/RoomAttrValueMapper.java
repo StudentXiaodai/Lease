@@ -1,7 +1,10 @@
 package com.atguigu.lease.web.admin.mapper;
 
 import com.atguigu.lease.model.entity.RoomAttrValue;
+import com.atguigu.lease.web.admin.vo.attr.AttrValueVo;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+
+import java.util.List;
 
 /**
 * @author liubo

@@ -2,9 +2,11 @@ package com.atguigu.lease.web.admin.service.impl;
 
 import com.atguigu.lease.model.entity.*;
 import com.atguigu.lease.model.enums.ItemType;
-import com.atguigu.lease.web.admin.mapper.RoomInfoMapper;
+import com.atguigu.lease.web.admin.mapper.*;
 import com.atguigu.lease.web.admin.service.*;
+import com.atguigu.lease.web.admin.vo.attr.AttrValueVo;
 import com.atguigu.lease.web.admin.vo.graph.GraphVo;
+import com.atguigu.lease.web.admin.vo.room.RoomDetailVo;
 import com.atguigu.lease.web.admin.vo.room.RoomItemVo;
 import com.atguigu.lease.web.admin.vo.room.RoomQueryVo;
 import com.atguigu.lease.web.admin.vo.room.RoomSubmitVo;
@@ -12,6 +14,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
@@ -25,8 +28,7 @@ import java.util.List;
  * @createDate 2023-07-24 15:48:00
  */
 @Service
-public class RoomInfoServiceImpl extends ServiceImpl<RoomInfoMapper, RoomInfo>
-        implements RoomInfoService {
+public class RoomInfoServiceImpl extends ServiceImpl<RoomInfoMapper, RoomInfo> implements RoomInfoService {
     private final GraphInfoService graphInfoService;
     private final RoomAttrValueService roomAttrValueService;
     private final RoomFacilityService roomFacilityService;
@@ -34,10 +36,21 @@ public class RoomInfoServiceImpl extends ServiceImpl<RoomInfoMapper, RoomInfo>
     private final RoomPaymentTypeService roomPaymentTypeService;
     private final RoomLeaseTermService roomLeaseTermService;
     private final RoomInfoMapper roomInfoMapper;
+    private final ApartmentInfoMapper apartmentInfoMapper;
+    private final GraphInfoMapper graphInfoMapper;
+    private final AttrValueMapper attrValueMapper;
+    private final FacilityInfoMapper facilityInfoMapper;
+    private final LabelInfoMapper labelInfoMapper;
+    private final PaymentTypeMapper paymentTypeMapper;
+    private final LeaseTermMapper leaseTermMapper;
 
     public RoomInfoServiceImpl(RoomAttrValueService roomAttrValueService, GraphInfoService graphInfoService
     , RoomFacilityService roomFacilityService, RoomLabelService roomLabelService
-    , RoomPaymentTypeService roomPaymentTypeService, RoomLeaseTermService roomLeaseTermService, RoomInfoMapper roomInfoMapper) {
+    , RoomPaymentTypeService roomPaymentTypeService, RoomLeaseTermService roomLeaseTermService
+    , RoomInfoMapper roomInfoMapper, ApartmentInfoMapper apartmentInfoMapper
+    , GraphInfoMapper graphInfoMapper, AttrValueMapper attrValueMapper
+    , FacilityInfoMapper facilityInfoMapper, LabelInfoMapper labelInfoMapper
+    , PaymentTypeMapper paymentTypeMapper, LeaseTermMapper leaseTermMapper) {
         this.graphInfoService = graphInfoService;
         this.roomAttrValueService = roomAttrValueService;
         this.roomFacilityService = roomFacilityService;
@@ -45,6 +58,13 @@ public class RoomInfoServiceImpl extends ServiceImpl<RoomInfoMapper, RoomInfo>
         this.roomPaymentTypeService = roomPaymentTypeService;
         this.roomLeaseTermService = roomLeaseTermService;
         this.roomInfoMapper = roomInfoMapper;
+        this.apartmentInfoMapper = apartmentInfoMapper;
+        this.graphInfoMapper = graphInfoMapper;
+        this.attrValueMapper = attrValueMapper;
+        this.facilityInfoMapper = facilityInfoMapper;
+        this.labelInfoMapper = labelInfoMapper;
+        this.paymentTypeMapper = paymentTypeMapper;
+        this.leaseTermMapper = leaseTermMapper;
     }
 
     @Override
@@ -162,6 +182,38 @@ public class RoomInfoServiceImpl extends ServiceImpl<RoomInfoMapper, RoomInfo>
     @Override
     public IPage<RoomItemVo> pageItem(Page<RoomItemVo> roomItemVoIPage, RoomQueryVo queryVo) {
         return roomInfoMapper.pageItem(roomItemVoIPage, queryVo);
+    }
+
+    @Override
+    public RoomDetailVo getDetailById(Long id) {
+        // 查询房间信息
+        RoomInfo roomInfo = roomInfoMapper.selectById(id);
+        // 所属公寓信息
+        ApartmentInfo apartmentInfo = apartmentInfoMapper.selectById(roomInfo.getApartmentId());
+        // 图片列表
+        List<GraphVo> graphVoList = graphInfoMapper.selectListByItemTypeAndId(ItemType.ROOM, id);
+        // 属性信息列表
+        List<AttrValueVo> attrValueVoList = attrValueMapper.selectListByRoomId(id);
+        // 配套信息列表
+        List<FacilityInfo> facilityInfoList = facilityInfoMapper.selectListByRoomId(id);
+        // 标签信息列表
+        List<LabelInfo> labelInfoList = labelInfoMapper.selectListByRoomId(id);
+        // 支付方式列表
+        List<PaymentType> paymentTypeList = paymentTypeMapper.selectListByRoomId(id);
+        // 可选租期列表
+        List<LeaseTerm> leaseTermList = leaseTermMapper.selectListByRoomId(id);
+
+        // 封装返回对象
+        RoomDetailVo roomDetailVo = new RoomDetailVo();
+        BeanUtils.copyProperties(roomInfo, roomDetailVo);
+        roomDetailVo.setApartmentInfo(apartmentInfo);
+        roomDetailVo.setGraphVoList(graphVoList);
+        roomDetailVo.setAttrValueVoList(attrValueVoList);
+        roomDetailVo.setFacilityInfoList(facilityInfoList);
+        roomDetailVo.setLabelInfoList(labelInfoList);
+        roomDetailVo.setPaymentTypeList(paymentTypeList);
+        roomDetailVo.setLeaseTermList(leaseTermList);
+        return roomDetailVo;
     }
 }
 

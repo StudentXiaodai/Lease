@@ -4,4 +4,19 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.atguigu.lease.web.admin.mapper.AttrValueMapper">
 
+    <select id="selectListByRoomId" resultType="com.atguigu.lease.web.admin.vo.attr.AttrValueVo">
+        SELECT v.id,
+               v.name,
+               v.attr_key_id,
+               k.name AS attr_key_name
+        FROM attr_value v
+                 JOIN
+             attr_key k ON v.attr_key_id = k.id
+                 JOIN
+             room_attr_value r ON r.attr_value_id = v.id
+        WHERE r.room_id = #{id}
+          AND v.is_deleted = 0
+          AND k.is_deleted = 0
+          AND r.is_deleted = 0
+    </select>
 </mapper>
