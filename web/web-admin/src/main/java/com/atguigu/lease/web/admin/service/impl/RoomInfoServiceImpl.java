@@ -16,6 +16,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;
@@ -214,6 +215,37 @@ public class RoomInfoServiceImpl extends ServiceImpl<RoomInfoMapper, RoomInfo> i
         roomDetailVo.setPaymentTypeList(paymentTypeList);
         roomDetailVo.setLeaseTermList(leaseTermList);
         return roomDetailVo;
+    }
+
+    @Override
+    @Transactional
+    public void removeRoomById(Long id) {
+        super.removeById(id);
+        // 删除图片列表
+        LambdaQueryWrapper<GraphInfo> graphWrapper = new LambdaQueryWrapper<>();
+        graphWrapper.eq(GraphInfo::getItemType, ItemType.ROOM);
+        graphWrapper.eq(GraphInfo::getItemId, id);
+        graphInfoService.remove(graphWrapper);
+        // 属性
+        LambdaQueryWrapper<RoomAttrValue> roomAttrWrapper = new LambdaQueryWrapper<>();
+        roomAttrWrapper.eq(RoomAttrValue::getRoomId, id);
+        roomAttrValueService.remove(roomAttrWrapper);
+        // 配套
+        LambdaQueryWrapper<RoomFacility> roomFacilityWrapper = new LambdaQueryWrapper<>();
+        roomFacilityWrapper.eq(RoomFacility::getRoomId, id);
+        roomFacilityService.remove(roomFacilityWrapper);
+        // 标签
+        LambdaQueryWrapper<RoomLabel> roomLabelWrapper = new LambdaQueryWrapper<>();
+        roomLabelWrapper.eq(RoomLabel::getRoomId, id);
+        roomLabelService.remove(roomLabelWrapper);
+        // 支付方式
+        LambdaQueryWrapper<RoomPaymentType> roomPaymentTypeWrapper = new LambdaQueryWrapper<>();
+        roomPaymentTypeWrapper.eq(RoomPaymentType::getRoomId, id);
+        roomPaymentTypeService.remove(roomPaymentTypeWrapper);
+        // 租期
+        LambdaQueryWrapper<RoomLeaseTerm> roomLeaseTermWrapper = new LambdaQueryWrapper<>();
+        roomLeaseTermWrapper.eq(RoomLeaseTerm::getRoomId, id);
+        roomLeaseTermService.remove(roomLeaseTermWrapper);
     }
 }
 
