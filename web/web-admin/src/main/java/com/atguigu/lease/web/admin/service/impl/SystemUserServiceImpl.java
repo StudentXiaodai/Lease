@@ -1,9 +1,17 @@
 package com.atguigu.lease.web.admin.service.impl;
 
+import com.atguigu.lease.model.entity.SystemPost;
 import com.atguigu.lease.model.entity.SystemUser;
+import com.atguigu.lease.web.admin.mapper.SystemPostMapper;
 import com.atguigu.lease.web.admin.mapper.SystemUserMapper;
 import com.atguigu.lease.web.admin.service.SystemUserService;
+import com.atguigu.lease.web.admin.vo.system.user.SystemUserItemVo;
+import com.atguigu.lease.web.admin.vo.system.user.SystemUserQueryVo;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -15,6 +23,28 @@ import org.springframework.stereotype.Service;
 public class SystemUserServiceImpl extends ServiceImpl<SystemUserMapper, SystemUser>
         implements SystemUserService {
 
+    @Autowired
+    private SystemUserMapper systemUserMapper;
+    @Autowired
+    private SystemPostMapper systemPostMapper;
+
+    @Override
+    public IPage<SystemUserItemVo> pageSystemUser(Page<SystemUser> page, SystemUserQueryVo queryVo) {
+        return systemUserMapper.pageSystemUser(page,queryVo);
+    }
+
+    @Override
+    public SystemUserItemVo getSystemUserById(Long id) {
+        // 根据 id 查用户信息
+        SystemUser systemUser = systemUserMapper.selectById(id);
+        // 根据查用户信息查询岗位信息
+        SystemPost systemPost = systemPostMapper.selectById(systemUser.getPostId());
+        // 封装结果并返回
+        SystemUserItemVo itemVo = new SystemUserItemVo();
+        BeanUtils.copyProperties(systemUser,itemVo);
+        itemVo.setPostName(systemPost.getName());
+        return itemVo;
+    }
 }
 
 
